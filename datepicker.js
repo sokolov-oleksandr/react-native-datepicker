@@ -284,6 +284,7 @@ class DatePicker extends Component {
       locale
     } = this.props;
 
+    const shouldShowPicker = Platform.OS === 'ios' ? this.state.isPicker && this.state.modalVisible : this.state.isPicker;
     const dateInputStyle = [
       Style.dateInput, customStyles.dateInput,
       disabled && Style.disabled,
@@ -373,8 +374,8 @@ class DatePicker extends Component {
               </TouchableComponent>
             </View>
           </Modal>}
-          {(mode === 'time' && this.state.isPicker && this.state.modalVisible)?<DateTimePicker mode="time" value={this.state.date} onChange={this.onTimePicked}/>:null}
-          {(mode === 'date' && this.state.isPicker && this.state.modalVisible)?<DateTimePicker mode="date" minimumDate={minDate && this.getDate(minDate)} maximumDate={maxDate && this.getDate(maxDate)} value={this.state.date} onChange={this.onDatePicked}/>:null}
+          {(mode === 'time' && shouldShowPicker)?<DateTimePicker mode="time" value={this.state.date} onChange={this.onTimePicked}/>:null}
+          {(mode === 'date' && shouldShowPicker)?<DateTimePicker mode="date" minimumDate={minDate && this.getDate(minDate)} maximumDate={maxDate && this.getDate(maxDate)} value={this.state.date} onChange={this.onDatePicked}/>:null}
         </View>
       </TouchableComponent>
     );
